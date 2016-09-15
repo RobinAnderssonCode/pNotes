@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+    <link rel="manifest" href="manifest.json">
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="cordova.js"></script>
+    <script src="js/elastic.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/factory.js"></script>
+    <script src="js/controllers.js"></script>
+</head>
+
+<body ng-app="pNotes">
+    <ion-pane>
+        <ion-nav-bar class="bar-dark" align-title="center">
+            <ion-nav-back-button></ion-nav-back-button>
+        </ion-nav-bar>
+        <ion-nav-view></ion-nav-view>
+        <!-- HOME -->
+        <script type="text/ng-template" id="home.html">
+            <ion-view view-title="pNotes">
+                <ion-content class="note-content">
+                    <div class="row">
+                        <div class="col">
+                            <a class="button button-block button-balanced btn-custom" ui-sref="addNote">New note</a>
+                            <a class="button button-block button-positive btn-custom" ui-sref="listNotes">View notes</a>
+                            <a class="button button-block button-energized btn-custom" ui-sref="editNote">Edit note</a>
+                            <a class="button button-block button-assertive btn-custom" ui-sref="deleteNote">Delete note</a>
+                        </div>
+                    </div>
+                </ion-content>
+            </ion-view>
+        </script>
+        <!-- ADD NOTE -->
+        <script type="text/ng-template" id="addNote.html">
+            <ion-view view-title="Add note">
+                <ion-content class="note-content">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card card-note">
+                                <label class="item item-input custom-color">
+                                    <input class="custom-color-focus" type="text" placeholder="Title..." ng-model="title">
+                                </label>
+                                <label class="item item-input card-note custom-color">
+                                    <textarea class="card-note note-text msd-elastic custom-color-focus" placeholder="Write a note..." ng-model="body"></textarea>
+                                </label>
+                            </div>
+                            <button class="button button-balanced" ng-click="saveNote(title, body)">Save</button>
+                        </div>
+                    </div>
+                </ion-content>
+            </ion-view>
+        </script>
+        <!-- VIEW NOTES -->
+        <script type="text/ng-template" id="listNotes.html">
+            <ion-view view-title="All notes">
+                <ion-content class="note-content">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="item item-text-wrap card-notes" ng-repeat="note in allNotes" ui-sref="singleNote({id: note.id})" nav-direction="enter">
+                                   {{note.title}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ion-content>
+            </ion-view>
+        </script>
+         <!-- SINGLE NOTE -->
+        <script type="text/ng-template" id="singleNote.html">
+            <ion-view view-title="{{singleNote.title}}">
+                <ion-content class="note-content">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="item item-text-wrap card-notes">
+                                <textarea class="note-text msd-elastic custom-color-focus single-note" ng-model="body">{{singleNote.body}}
+                                </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ion-content>
+            </ion-view>
+        </script>
+        <!-- EDIT NOTE -->
+        <script type="text/ng-template" id="editNote.html">
+            <ion-view view-title="Edit note">
+                <ion-content class="note-content">
+                    <div class="row">
+                        <div class="col">
+                        </div>
+                    </div>
+                </ion-content>
+            </ion-view>
+        </script>
+        <!-- DELETE NOTE -->
+        <script type="text/ng-template" id="deleteNote.html">
+            <ion-view view-title="Delete note">
+                <ion-content class="note-content">
+                    <div class="row">
+                        <div class="col">
+                        </div>
+                    </div>
+                </ion-content>
+            </ion-view>
+        </script>
+    </ion-pane>
+</body>
+
+</html>

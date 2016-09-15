@@ -1,0 +1,24 @@
+.card-note {
+    min-height: 120px;
+}
+
+.custom-color {
+	background-color: #FFFEF;
+}
+
+.card-notes {
+    background-color: #FFFEF;
+}
+
+.btn-custom {
+	border: 2px solid;
+}
+
+.note-content {
+    background-image: url(../img/bg-img.jpg);
+}
+
+.single-note {
+	width: 100%;
+	min-height: 60px;
+}
