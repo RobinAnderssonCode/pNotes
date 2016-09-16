@@ -27,3 +27,19 @@
 .note-title {
 	font-weight: bold;
 }
+
+.note-time {
+	float: right;
+	font-style: italic;
+    font-size: 14px;
+    color: #a0a0a0;
+}
+
+.note-time2 {
+	float: right;
+	font-style: italic;
+    font-size: 14px;
+    color: white;
+    background-color: black
+}
+

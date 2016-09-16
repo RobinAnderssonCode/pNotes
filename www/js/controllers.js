@@ -1,3 +1,28 @@
+// Login
+app.controller('LoginCtrl', function($scope, $state, LoginService) {
+
+$scope.log_pattern = LoginService.getLoginPattern();
+ 
+var lock = new PatternLock('#lockPattern', {
+    onDraw:function(pattern){
+        if ($scope.log_pattern) {
+            LoginService.checkLoginPattern(pattern).success(function(data) {
+                lock.reset();
+                console.log("ska gå till listnotes här");
+                $state.go('listNotes');
+            }).error(function(data) {
+                lock.error();
+            });
+        } else {
+            LoginService.setLoginPattern(pattern);
+            lock.reset();
+            $scope.log_pattern = LoginService.getLoginPattern();
+            $scope.$apply();
+        }
+    }
+});
+});
+
 // Add note
 app.controller('AddNoteCtrl', function($scope, $state, NoteFactory) {
 
@@ -5,7 +30,7 @@ app.controller('AddNoteCtrl', function($scope, $state, NoteFactory) {
         var obj = {};
         obj.title = title;
         obj.body = body;
-        obj.date = new Date();
+        obj.date = new Date().toUTCString();
         obj.id = new Date().valueOf();
 
         NoteFactory.saveNote(obj);
@@ -15,7 +40,7 @@ app.controller('AddNoteCtrl', function($scope, $state, NoteFactory) {
 });
 
 // View notes
-app.controller('ListNotesCtrl', function($scope, $state, NoteFactory) {
+app.controller('ListNotesCtrl', function($scope, NoteFactory) {
     $scope.allNotes = NoteFactory.getAllNotes;
 });
 
@@ -27,30 +52,24 @@ app.controller('SingleNoteCtrl', function($scope, $state, $stateParams, NoteFact
     $scope.singleNote = NoteFactory.getNote(noteId);
     $scope.title = $scope.singleNote.title;
     $scope.body = $scope.singleNote.body;
-});
 
-
-// Edit note
-app.controller('EditNoteCtrl', function($scope, NoteFactory, $state) {
-
-	$(".focusout").focusout(function() {
-		console.log($scope.id)
-	});
-
-    $scope.editNote = function(title, body, id) {
-    	console.log(id);
-        var obj = {};
-        obj.title = title;
-        obj.body = body;
-        obj.date = new Date();
-
-
-        NoteFactory.editNote(id, obj);
+    // Delete a note
+     $scope.deleteNote = function(id) {
+        NoteFactory.deleteNote(id);
         $state.go('listNotes');
     };
 });
 
-// Delete note
-app.controller('DeleteNoteCtrl', function($scope, $state, NoteFactory, $ionicActionSheet) {
-    console.log("delete called")
+
+// Edit note
+app.controller('EditNoteCtrl', function($scope, NoteFactory, $stateParams) {
+	$(".focusout").focusout(function() {
+		var obj = {};
+        obj.title = $scope.title;
+        obj.body = $scope.body;
+        obj.id = parseInt($stateParams.id);
+        obj.date = new Date();
+
+        NoteFactory.editNote(obj.id, obj);
+	});
 });
