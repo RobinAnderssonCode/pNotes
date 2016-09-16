@@ -19,14 +19,19 @@ app.factory('NoteFactory', function() {
 				if(notes[i].id === noteId) {
 					return notes[i];
 				}
-
 			}
 		},
 		saveNote: function(obj) {
 			notes.unshift(obj);
 		},
-		editNote: function(index, note) {
-			notes[index] = note;
+		editNote: function(noteId, obj) {
+			for (var i = 0; i < notes.length; i++) {
+				if(notes[i].id === noteId) {
+					notes[i] = obj;
+					notes[i].id = noteId;
+					return notes[i]
+				}
+			}
 		},
 		deleteNote: function(index) {
 			notes.splice(index, 1);

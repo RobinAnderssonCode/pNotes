@@ -14,12 +14,12 @@ app.run(function($ionicPlatform) {
 
 app.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
-        .state('home', {
-            url: '/',
-            templateUrl: 'home.html'
-        })
+        // .state('home', {
+        //     url: '/',
+        //     templateUrl: 'home.html'
+        // })
         .state('listNotes', {
-            url: '/notes',
+            url: '/',
             templateUrl: 'listNotes.html',
             controller: 'ListNotesCtrl'
         })
@@ -33,21 +33,21 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'addNote.html',
             controller: 'AddNoteCtrl'
         })
-        .state('editNote', {
-            url: '/edit',
-            templateUrl: 'editNote.html',
-            controller: 'EditNoteCtrl'
-        })
+        // .state('editNote', {
+        //     url: '/edit',
+        //     templateUrl: 'editNote.html',
+        //     controller: 'EditNoteCtrl'
+        // })
         .state('updateNote', {
             url: '/edit/:id',
             templateUrl: 'updateNote.html',
             controller: 'UpdateNoteCtrl'
         })
-        .state('deleteNote', {
-            url: '/delete',
-            templateUrl: 'deleteNote.html',
-            controller: 'DeleteNoteCtrl'
-        });
+        // .state('deleteNote', {
+        //     url: '/delete',
+        //     templateUrl: 'deleteNote.html',
+        //     controller: 'DeleteNoteCtrl'
+        // });
 
     $urlRouterProvider.otherwise('/');
 });
