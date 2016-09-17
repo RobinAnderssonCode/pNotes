@@ -3,7 +3,7 @@ app.factory('NoteFactory', function() {
     var notes = [{
         title: "Welcome to pNotes",
         body: "pNotes stands for Private Notes. It's a small simple app designed to easily take notes and keeping them private.",
-        date: "Fri, 16 Sep 2016 00:00:00 GMT",
+        date: "Sep 17, 2016",
         id: 1
     }];
 
@@ -49,6 +49,9 @@ app.factory('LoginService', function($q) {
         },
         setLoginPattern: function(pattern) {
             window.localStorage.setItem("login_pattern", pattern);
+        },
+        removeLoginPattern: function() {
+            window.localStorage.removeItem("login_pattern");
         },
         checkLoginPattern: function(pattern) {
             var deferred = $q.defer();

@@ -33,6 +33,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/add',
             templateUrl: 'addNote.html',
             controller: 'AddNoteCtrl'
+        })
+        .state('about', {
+            url: '/about',
+            templateUrl: 'about.html'
         });
 
     $urlRouterProvider.otherwise('/login');

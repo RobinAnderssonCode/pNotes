@@ -29,31 +29,35 @@
         <script type="text/ng-template" id="login.html">
             <ion-view view-title='Login' name='login-view'>
                 <ion-content class='center'>
-                    <div class='list card' ng-hide='log_pattern'>
-                        <div class='item item-icon-left'>
-                            <i class='icon ion-alert assertive'></i>
-                            <h2 class='assertive'>Please set your login pattern!</h2>
+                    <div class="row" ng-hide="log_pattern">
+                        <div class="col">
+                            <h3 id="login-title" class="text-center">Please set your login pattern</h3>
                         </div>
                     </div>
-                    <div id='lockPattern' class='pattern-holder patt-holder'></div>
+                    <div id='lockPattern' class='pattern-holder patt-holder center2'>
+                    </div>
                 </ion-content>
             </ion-view>
         </script>
         <!-- ADD NOTE -->
         <script type="text/ng-template" id="addNote.html">
             <ion-view view-title="Add note">
+                <ion-nav-buttons side="right">
+                    <button id="save-note" class="button" ng-click="saveNote2()">
+                        <i class='icon ion-checkmark-round'></i>
+                    </button>
+                </ion-nav-buttons>
                 <ion-content class="note-content">
                     <div class="row">
                         <div class="col">
                             <div class="card card-note">
                                 <label class="item item-input custom-color">
-                                    <input class="custom-color-focus note-title" type="text" placeholder="Title..." ng-model="title">
+                                    <input class="custom-color-focus note-title" type="text" placeholder="Title..." ng-model="note.title">
                                 </label>
                                 <label class="item item-input card-note custom-color">
-                                    <textarea class="card-note note-text msd-elastic custom-color-focus" placeholder="Write a note..." ng-model="body"></textarea>
+                                    <textarea class="card-note note-text msd-elastic custom-color-focus" placeholder="Write a note..." ng-model="note.body"></textarea>
                                 </label>
                             </div>
-                            <button class="button button-balanced" ng-click="saveNote(title, body)">Save</button>
                         </div>
                     </div>
                 </ion-content>
@@ -62,13 +66,20 @@
         <!-- VIEW NOTES -->
         <script type="text/ng-template" id="listNotes.html">
             <ion-view view-title="pNotes">
+                <ion-nav-buttons side="right">
+                    <button id="add-note" class="button" ui-sref="addNote">
+                        <i class='icon ion-plus-round'>Add note</i>
+                    </button>
+                    <button id="menu-custom" class="button" ng-click="openPopover($event)">
+                        <i class='icon ion-android-more-vertical'></i>
+                    </button>
+                </ion-nav-buttons>
                 <ion-content class="note-content">
                     <div class="row">
                         <div class="col">
-                            <a class="button button-block button-balanced btn-custom" ui-sref="addNote">New note</a>
-                            <div class="card">
+                            <div class="card opacity-cards">
                                 <div class="item item-text-wrap card-notes" ng-repeat="note in allNotes" ui-sref="singleNote({id: note.id})" nav-direction="enter">
-                                    <span class="note-title">{{note.title}}</span><span class="note-time">{{note.date}}</span>
+                                    <span class="note-title">{{note.title}}</span><span class="note-time">{{note.date | date : "mediumDate"}}</span>
                                 </div>
                             </div>
                         </div>
@@ -76,13 +87,40 @@
                 </ion-content>
             </ion-view>
         </script>
+        <!-- POPOVER MENU -->
+        <script id="menu.html" type="text/ng-template">
+            <ion-popover-view>
+                <ion-header-bar>
+                    <h1 class="title">Menu</h1>
+                </ion-header-bar>
+                <ion-content>
+                    <ion-list>
+                        <a ng-click="removePattern()">
+                            <ion-item>
+                                Set new password
+                            </ion-item>
+                        </a>
+                        <a ng-click="goToAbout()">
+                            <ion-item>
+                                About
+                            </ion-item>
+                        </a>
+                    </ion-list>
+                </ion-content>
+            </ion-popover-view>
+        </script>
         <!-- SINGLE NOTE -->
         <script type="text/ng-template" id="singleNote.html">
             <ion-view view-title="{{singleNote.title}}">
+                <ion-nav-buttons side="right">
+                    <button id="delete-note" class="button" ng-click="deleteNote(singleNote.id)">
+                        <i class='icon ion-trash-b'></i>
+                    </button>
+                </ion-nav-buttons>
                 <ion-content class="note-content">
                     <div class="row">
                         <div class="col" ng-controller="EditNoteCtrl">
-                            <div class="card">
+                            <div class="card opacity-cards">
                                 <div class="item item-text-wrap card-notes">
                                     <label class="item item-input custom-color">
                                         <input class="focusout custom-color-focus note-title" type="text" placeholder="{{singleNote.title}}" ng-model="title">
@@ -93,7 +131,21 @@
                                     </label>
                                 </div>
                             </div>
-                            <span><a class="button button-assertive btn-custom" ng-click="deleteNote(singleNote.id)">Delete note</a></span><span class="note-time2">Created: {{singleNote.date}}</span>
+                            <p id="note-time2">Created: {{singleNote.date | date : "mediumDate"}}</p>
+                        </div>
+                    </div>
+                </ion-content>
+            </ion-view>
+        </script>
+        <!-- ABOUT -->
+        <script type="text/ng-template" id="about.html">
+            <ion-view view-title="About">
+                <ion-content class="note-content">
+                    <div class="row">
+                        <div class="col">
+                            <div id="about" class="card">
+                                About bla bla bla
+                            </div>
                         </div>
                     </div>
                 </ion-content>
