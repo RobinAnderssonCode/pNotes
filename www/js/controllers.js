@@ -28,7 +28,7 @@ app.controller('LoginCtrl', function($scope, $state, LoginService, $ionicHistory
 
 // Add note
 app.controller('AddNoteCtrl', function($scope, $state, NoteFactory) {
-    
+
     $scope.note = {};
     $scope.saveNote2 = function() {
         $scope.note.title = $scope.note.title;
@@ -37,19 +37,6 @@ app.controller('AddNoteCtrl', function($scope, $state, NoteFactory) {
         $scope.note.id = new Date().valueOf();
 
         NoteFactory.saveNote($scope.note);
-        $state.go('listNotes');
-
-        console.log($scope.note);
-    };
-
-    $scope.saveNote = function(title, body) {
-        var obj = {};
-        obj.title = title;
-        obj.body = body;
-        obj.date = new Date();
-        obj.id = new Date().valueOf();
-
-        NoteFactory.saveNote(obj);
         $state.go('listNotes');
     };
 });
@@ -91,7 +78,7 @@ app.controller('ListNotesCtrl', function($scope, NoteFactory, LoginService, $sta
 });
 
 // Single note
-app.controller('SingleNoteCtrl', function($scope, $state, $stateParams, NoteFactory) {
+app.controller('SingleNoteCtrl', function($scope, $state, $stateParams, NoteFactory, $ionicActionSheet) {
     // $stateParams.id is a string
     var noteId = parseInt($stateParams.id);
 
@@ -101,8 +88,17 @@ app.controller('SingleNoteCtrl', function($scope, $state, $stateParams, NoteFact
 
     // Delete a note
     $scope.deleteNote = function(id) {
-        NoteFactory.deleteNote(id);
-        $state.go('listNotes');
+        $ionicActionSheet.show({
+            destructiveText: 'Delete',
+            titleText: 'Delete note?',
+            cancelText: 'Cancel',
+            destructiveButtonClicked: function() {
+                NoteFactory.deleteNote(id);
+                $state.go('listNotes');
+                return true;
+            }
+        });
+
     };
 });
 
