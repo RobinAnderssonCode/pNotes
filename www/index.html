@@ -93,6 +93,16 @@
             <ion-popover-view>
                 <ion-content>
                     <ion-list>
+                        <a ng-click="orderByDate()">
+                            <ion-item>
+                                Order by date
+                            </ion-item>
+                        </a>
+                        <a ng-click="orderByColor()">
+                            <ion-item>
+                                Order by color
+                            </ion-item>
+                        </a>
                         <a ng-click="deleteAll()">
                             <ion-item>
                                 Delete all notes
@@ -114,30 +124,30 @@
         </script>
         <!-- SINGLE NOTE -->
         <script type="text/ng-template" id="singleNote.html">
-            <ion-view view-title="{{singleNote.title}}">
+            <ion-view view-title="{{obj.title}}">
                 <ion-nav-buttons side="right">
                     <button id="edit-note" class="button" ng-click="editNote()">
                         <i class='icon ion-checkmark-round'></i>
                     </button>
-                    <button id="delete-note" class="button" ng-click="deleteNote(singleNote.id)">
+                    <button id="delete-note" class="button" ng-click="deleteNote(obj.id)">
                         <i class='icon ion-trash-b'></i>
                     </button>
                 </ion-nav-buttons>
                 <ion-content class="note-content">
                     <div class="row">
-                        <div class="col" ng-controller="EditNoteCtrl">
+                        <div class="col">
                             <div class="card opacity-cards">
                                 <div class="item item-text-wrap card-notes">
                                     <label class="item item-input custom-color">
-                                        <input class="focusout custom-color-focus note-title" type="text" placeholder="{{singleNote.title}}" ng-model="title">
+                                        <input class="focusout custom-color-focus note-title" type="text" placeholder="{{obj.title}}" ng-model="obj.title">
                                     </label>
                                     <label class="item item-input custom-color">
-                                        <textarea class="focusout note-text msd-elastic custom-color-focus single-note" ng-model="body">{{singleNote.body}}
+                                        <textarea class="focusout note-text msd-elastic custom-color-focus single-note" ng-model="obj.body">{{obj.body}}
                                         </textarea>
                                     </label>
                                 </div>
                             </div>
-                            <p id="note-time2">Created: {{singleNote.date}}</p>
+                            <p id="note-time2">Created: {{obj.date}}</p>
                         </div>
                     </div>
                 </ion-content>

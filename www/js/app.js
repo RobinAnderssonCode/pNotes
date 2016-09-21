@@ -12,7 +12,11 @@ app.run(function($ionicPlatform, $cordovaSQLite) {
         }
         // Open database
         db = $cordovaSQLite.openDB("pnotes.db");
-        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS notes (id integer primary key, title text, body text, date text)");
+
+        // $cordovaSQLite.execute(db, "DROP TABLE notes"); // varje gång något nytt värde
+        //läggs in påp raden nedan måste tablen tas bort först och skapas upp igen
+
+        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS notes (id integer primary key, title text, body text, date text, time integer)");
 
         // Terminate app on home button pushed. 
          // $ionicPlatform.on('pause', function() {

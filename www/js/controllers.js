@@ -1,16 +1,7 @@
-// Date options
-var options = {
-    weekday: "short",
-    year: "numeric",
-    month: "short",
-    day: "numeric"
-};
-
 // Login
 app.controller('LoginCtrl', function($scope, $state, LoginService, $ionicHistory) {
 
     $scope.log_pattern = LoginService.getLoginPattern();
-
     var lock = new PatternLock('#lockPattern', {
         onDraw: function(pattern) {
             if ($scope.log_pattern) {
@@ -30,9 +21,16 @@ app.controller('LoginCtrl', function($scope, $state, LoginService, $ionicHistory
                 $scope.$apply();
             }
         }
-
     });
 });
+
+// Date options
+var options = {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric"
+};
 
 // Add note
 app.controller('AddNoteCtrl', function($scope, $state, NoteFactory, $cordovaSQLite) {
@@ -43,7 +41,8 @@ app.controller('AddNoteCtrl', function($scope, $state, NoteFactory, $cordovaSQLi
         $scope.note.body = $scope.note.body;
         var date = new Date();
         $scope.note.date = new Intl.DateTimeFormat("en-us", options).format(date);
-        // $scope.note.time = new Date().valueOf();
+        $scope.note.time = new Date().valueOf();
+        // $scope.note.color = 
 
         NoteFactory.saveNote($scope.note);
         $state.go('listNotes');
@@ -71,9 +70,17 @@ app.controller('ListNotesCtrl', function($scope, NoteFactory, LoginService, $sta
         });
     };
 
+    $scope.orderByDate = function() {
+        NoteFactory.orderByDate();
+    };
+
+    $scope.orderByColor = function() {
+      NoteFactory.orderByColor();  
+    };
+
     $scope.removePattern = function() {
         LoginService.removeLoginPattern();
-        $scope.popover.hide();
+        $scope.closePopover();
         $state.go('login');
         setTimeout(function() {
             document.location.reload(true);
@@ -81,7 +88,7 @@ app.controller('ListNotesCtrl', function($scope, NoteFactory, LoginService, $sta
     };
 
     $scope.goToAbout = function() {
-        $scope.popover.hide();
+        $scope.closePopover();
         $state.go('about');
     };
 
@@ -105,16 +112,40 @@ app.controller('SingleNoteCtrl', function($scope, $state, $stateParams, NoteFact
 
     var noteId = parseInt($stateParams.id);
     NoteFactory.getNote(noteId).then(function(obj) {
-        $scope.singleNote = obj;
-        $scope.title = obj.title;
-        $scope.body = obj.body;
+        $scope.obj = obj;
+        console.log($scope.obj);
+        $scope.obj.title = obj.title;
+        $scope.obj.body = obj.body;
+        console.log(typeof $scope.obj.body);
     }, function(err) {
         console.log(err);
     });
 
     $scope.editNote = function() {
+        var obj = {};
+        obj.title = $scope.obj.title;
+        obj.body = $scope.obj.body;
+        obj.id = parseInt($stateParams.id);
+        var date = new Date();
+        obj.date = new Intl.DateTimeFormat("en-us", options).format(date);
+        obj.time = new Date().valueOf();
+
+        NoteFactory.editNote(obj);
         $state.go('listNotes');
-    }
+    };
+
+    // Edit note on no textarea/input no focus.
+     $(".focusout").focusout(function() {
+        var obj = {};
+        obj.title = $scope.obj.title;
+        obj.body = $scope.obj.body;
+        obj.id = parseInt($stateParams.id);
+        var date = new Date();
+        obj.date = new Intl.DateTimeFormat("en-us", options).format(date);
+        obj.time = new Date().valueOf();
+
+        NoteFactory.editNote(obj);
+    });
 
     $scope.deleteNote = function(id) {
         $ionicActionSheet.show({
@@ -131,18 +162,10 @@ app.controller('SingleNoteCtrl', function($scope, $state, $stateParams, NoteFact
     };
 });
 
-
-// Edit note
-app.controller('EditNoteCtrl', function($scope, NoteFactory, $stateParams, $state) {
-
-
-    $(".focusout").focusout(function() {
-        var obj = {};
-        obj.title = $scope.title;
-        obj.body = $scope.body;
-        obj.id = parseInt($stateParams.id);
-        obj.date = new Date();
-
-        NoteFactory.editNote(obj);
-    });
-});
+// Att fixa :
+// Titeln
+// order by color
+// about sidan
+// importera / exportera
+// färger
+// Item sliding
