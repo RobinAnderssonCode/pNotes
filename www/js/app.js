@@ -1,6 +1,7 @@
-var app = angular.module('pNotes', ['ionic','monospaced.elastic']);
+var app = angular.module('pNotes', ['ionic', 'monospaced.elastic', 'ngCordova']);
+var db = null;
 
-app.run(function($ionicPlatform) {
+app.run(function($ionicPlatform, $cordovaSQLite) {
     $ionicPlatform.ready(function() {
         if (window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -9,6 +10,14 @@ app.run(function($ionicPlatform) {
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
+        // Open database
+        db = $cordovaSQLite.openDB("pnotes.db");
+        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS notes (id integer primary key, title text, body text, date text)");
+
+        // Terminate app on home button pushed. 
+         // $ionicPlatform.on('pause', function() {
+         //    ionic.Platform.exitApp();
+         // });
     });
 });
 

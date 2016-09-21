@@ -1,3 +1,11 @@
+// Date options
+var options = {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric"
+};
+
 // Login
 app.controller('LoginCtrl', function($scope, $state, LoginService, $ionicHistory) {
 
@@ -27,14 +35,15 @@ app.controller('LoginCtrl', function($scope, $state, LoginService, $ionicHistory
 });
 
 // Add note
-app.controller('AddNoteCtrl', function($scope, $state, NoteFactory) {
+app.controller('AddNoteCtrl', function($scope, $state, NoteFactory, $cordovaSQLite) {
 
     $scope.note = {};
-    $scope.saveNote2 = function() {
+    $scope.saveNote = function() {
         $scope.note.title = $scope.note.title;
         $scope.note.body = $scope.note.body;
-        $scope.note.date = new Date();
-        $scope.note.id = new Date().valueOf();
+        var date = new Date();
+        $scope.note.date = new Intl.DateTimeFormat("en-us", options).format(date);
+        // $scope.note.time = new Date().valueOf();
 
         NoteFactory.saveNote($scope.note);
         $state.go('listNotes');
@@ -42,8 +51,25 @@ app.controller('AddNoteCtrl', function($scope, $state, NoteFactory) {
 });
 
 // View notes
-app.controller('ListNotesCtrl', function($scope, NoteFactory, LoginService, $state, $ionicPopover) {
-    $scope.allNotes = NoteFactory.getAllNotes;
+app.controller('ListNotesCtrl', function($scope, NoteFactory, LoginService, $state, $ionicPopover, $ionicActionSheet) {
+
+    $scope.$on("$ionicView.beforeEnter", function() {
+        $scope.allNotes = NoteFactory.getAllNotes();
+    });
+
+    $scope.deleteAll = function() {
+        $ionicActionSheet.show({
+            destructiveText: 'Delete all',
+            titleText: 'Delete all notes?',
+            cancelText: 'Cancel',
+            destructiveButtonClicked: function() {
+                NoteFactory.deleteAll();
+                $scope.closePopover();
+                $scope.allNotes = NoteFactory.getAllNotes();
+                return true;
+            }
+        });
+    };
 
     $scope.removePattern = function() {
         LoginService.removeLoginPattern();
@@ -72,39 +98,44 @@ app.controller('ListNotesCtrl', function($scope, NoteFactory, LoginService, $sta
     $scope.closePopover = function() {
         $scope.popover.hide();
     };
-
-
-
 });
 
 // Single note
 app.controller('SingleNoteCtrl', function($scope, $state, $stateParams, NoteFactory, $ionicActionSheet) {
-    // $stateParams.id is a string
+
     var noteId = parseInt($stateParams.id);
+    NoteFactory.getNote(noteId).then(function(obj) {
+        $scope.singleNote = obj;
+        $scope.title = obj.title;
+        $scope.body = obj.body;
+    }, function(err) {
+        console.log(err);
+    });
 
-    $scope.singleNote = NoteFactory.getNote(noteId);
-    $scope.title = $scope.singleNote.title;
-    $scope.body = $scope.singleNote.body;
+    $scope.editNote = function() {
+        $state.go('listNotes');
+    }
 
-    // Delete a note
     $scope.deleteNote = function(id) {
         $ionicActionSheet.show({
             destructiveText: 'Delete',
             titleText: 'Delete note?',
             cancelText: 'Cancel',
             destructiveButtonClicked: function() {
-                NoteFactory.deleteNote(id);
-                $state.go('listNotes');
-                return true;
+                NoteFactory.deleteNote(id).then(function() {
+                    $state.go('listNotes');
+                    return true;
+                });
             }
         });
-
     };
 });
 
 
 // Edit note
-app.controller('EditNoteCtrl', function($scope, NoteFactory, $stateParams) {
+app.controller('EditNoteCtrl', function($scope, NoteFactory, $stateParams, $state) {
+
+
     $(".focusout").focusout(function() {
         var obj = {};
         obj.title = $scope.title;
@@ -112,6 +143,6 @@ app.controller('EditNoteCtrl', function($scope, NoteFactory, $stateParams) {
         obj.id = parseInt($stateParams.id);
         obj.date = new Date();
 
-        NoteFactory.editNote(obj.id, obj);
+        NoteFactory.editNote(obj);
     });
 });

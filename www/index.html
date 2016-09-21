@@ -10,6 +10,7 @@
     <link href="css/patternLock.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="js/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
     <script src="js/elastic.js"></script>
     <script src="js/jquery-3.1.0.slim.min.js"></script>
@@ -43,7 +44,7 @@
         <script type="text/ng-template" id="addNote.html">
             <ion-view view-title="Add note">
                 <ion-nav-buttons side="right">
-                    <button id="save-note" class="button" ng-click="saveNote(title, body)">
+                    <button id="save-note" class="button" ng-click="saveNote()">
                         <i class='icon ion-checkmark-round'></i>
                     </button>
                 </ion-nav-buttons>
@@ -79,7 +80,7 @@
                         <div class="col">
                             <div class="card opacity-cards">
                                 <div class="item item-text-wrap card-notes" ng-repeat="note in allNotes" ui-sref="singleNote({id: note.id})" nav-direction="enter">
-                                    <span class="note-title">{{note.title}}</span><span class="note-time">{{note.date | date : "mediumDate"}}</span>
+                                    <span class="note-title">{{note.title}}</span><span class="note-time">{{note.date}}</span>
                                 </div>
                             </div>
                         </div>
@@ -90,11 +91,13 @@
         <!-- POPOVER MENU -->
         <script id="menu.html" type="text/ng-template">
             <ion-popover-view>
-                <ion-header-bar>
-                    <h1 class="title">Menu</h1>
-                </ion-header-bar>
                 <ion-content>
                     <ion-list>
+                        <a ng-click="deleteAll()">
+                            <ion-item>
+                                Delete all notes
+                            </ion-item>
+                        </a>
                         <a ng-click="removePattern()">
                             <ion-item>
                                 Set new password
@@ -113,6 +116,9 @@
         <script type="text/ng-template" id="singleNote.html">
             <ion-view view-title="{{singleNote.title}}">
                 <ion-nav-buttons side="right">
+                    <button id="edit-note" class="button" ng-click="editNote()">
+                        <i class='icon ion-checkmark-round'></i>
+                    </button>
                     <button id="delete-note" class="button" ng-click="deleteNote(singleNote.id)">
                         <i class='icon ion-trash-b'></i>
                     </button>
@@ -131,7 +137,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <p id="note-time2">Created: {{singleNote.date | date : "mediumDate"}}</p>
+                            <p id="note-time2">Created: {{singleNote.date}}</p>
                         </div>
                     </div>
                 </ion-content>

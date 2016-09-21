@@ -1,4 +1,4 @@
-app.factory('NoteFactory', function() {
+app.factory('NoteFactory', function($cordovaSQLite) {
 
     var notes = [{
         title: "Welcome to pNotes",
@@ -8,42 +8,80 @@ app.factory('NoteFactory', function() {
     }];
 
     var noteService = {
-        getAllNotes: notes,
-        getNote: function(noteId) {
-            for (var i = 0; i < notes.length; i++) {
-                if (notes[i].id === noteId) {
-                    return notes[i];
+        getAllNotes: function() {
+            var query = "SELECT * FROM notes";
+            var notes = [];
+            $cordovaSQLite.execute(db, query, []).then(function(res) {
+                if (res.rows.length > 0) {
+                    for (var i = 0; i < res.rows.length; i++) {
+                        notes.push({
+                            title: res.rows.item(i).title,
+                            body: res.rows.item(i).body,
+                            date: res.rows.item(i).date,
+                            id: res.rows.item(i).id
+                        });
+                    }
+                } else {
+                    console.log("No results found");
                 }
-            }
+            }, function(err) {
+                console.error("error -> " + err);
+            });
+            return notes;
+        },
+        getNote: function(noteId) {
+            var query = "SELECT * FROM notes WHERE id = ?";
+            return $cordovaSQLite.execute(db, query, [noteId]).then(function(res) {
+                if (res.rows.length > 0) {
+                    return res.rows.item(0);
+                } else {
+                    console.log("No results found");
+                    return false;
+                }
+            }, function(err) {
+                console.error(err);
+            });
         },
         saveNote: function(obj) {
-            notes.unshift(obj);
+            var query = "INSERT INTO notes (title, body, date) VALUES (?,?,?)";
+            $cordovaSQLite.execute(db, query, [obj.title, obj.body, obj.date]).then(function(res) {
+                console.log("INSERTED ID -> " + res.insertId);
+            }, function(err) {
+                console.error(err);
+            });
         },
-        editNote: function(noteId, obj) {
-            for (var i = 0; i < notes.length; i++) {
-                if (notes[i].id === noteId) {
-                    notes[i] = obj;
-                    notes[i].id = noteId;
-                    return notes[i]
-                }
-            }
+        editNote: function(obj) {
+            console.log(obj);
+            var query = "UPDATE notes SET title = (?), body = (?), date = (?) WHERE id = (?)";
+            $cordovaSQLite.execute(db, query, [obj.title, obj.body, obj.date, obj.id]).then(function(res) {
+                console.log("UPDATED ID -> " + obj.id);
+            }, function(err) {
+                console.error(err);
+            });
         },
         deleteNote: function(noteId) {
-            for (var i = 0; i < notes.length; i++) {
-                if (notes[i].id === noteId) {
-                    notes.splice(i, 1);
-                    return notes;
-                }
-            }
+            var query = "DELETE FROM notes WHERE ID = ?";
+            return $cordovaSQLite.execute(db, query, [noteId]).then(function(res) {
+                console.log("DELETED ID -> " + res.insertId);
+            }, function(err) {
+                console.error(err);
+            });
+        },
+        deleteAll: function() {
+            var query = "DELETE FROM notes";
+            $cordovaSQLite.execute(db, query, []).then(function(res) {
+                console.log("DELETED All notes");
+            }, function(err) {
+                console.error(err);
+            });
         }
     }
-
     return noteService;
 
 });
 
 app.factory('LoginService', function($q) {
-	return {
+    return {
         getLoginPattern: function() {
             return window.localStorage.getItem("login_pattern");
         },
