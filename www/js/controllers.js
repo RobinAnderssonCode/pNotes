@@ -70,8 +70,10 @@ app.controller('ListNotesCtrl', function($scope, NoteFactory, LoginService, $sta
         });
     };
 
-    $scope.orderByDate = function() {
-        NoteFactory.orderByDate();
+    $scope.orderByTime = function() {
+        NoteFactory.orderByTime();
+        $scope.closePopover();
+        $scope.allNotes = NoteFactory.getAllNotes();
     };
 
     $scope.orderByColor = function() {
@@ -108,15 +110,13 @@ app.controller('ListNotesCtrl', function($scope, NoteFactory, LoginService, $sta
 });
 
 // Single note
-app.controller('SingleNoteCtrl', function($scope, $state, $stateParams, NoteFactory, $ionicActionSheet) {
+app.controller('SingleNoteCtrl', function($scope, $state, $stateParams, NoteFactory, $ionicActionSheet, $ionicPopover) {
 
     var noteId = parseInt($stateParams.id);
     NoteFactory.getNote(noteId).then(function(obj) {
         $scope.obj = obj;
-        console.log($scope.obj);
         $scope.obj.title = obj.title;
         $scope.obj.body = obj.body;
-        console.log(typeof $scope.obj.body);
     }, function(err) {
         console.log(err);
     });
@@ -159,6 +159,39 @@ app.controller('SingleNoteCtrl', function($scope, $state, $stateParams, NoteFact
                 });
             }
         });
+    };
+
+    // MÅSTE KÖRA SASS tror jag
+
+    $scope.green = function() {
+        console.log("green called")
+        $(".aaa").css("background-color", "#00AA00");
+    };
+    $scope.blue = function() {
+        console.log("blue called")
+        $(".aaa").css("background-color", "#0055FF");
+    };
+    $scope.red = function() {
+        console.log("red called")
+        $(".aaa").css("background-color", "#FF3939;");
+    };
+    $scope.white = function() {
+        console.log("white called")
+        $(".aaa").css("background-color", "#FEFEFE");
+    };
+
+     // POPOVER
+    $ionicPopover.fromTemplateUrl('menu-single.html', {
+        scope: $scope
+    }).then(function(popover) {
+        $scope.popover = popover;
+    });
+
+    $scope.openPopover = function($event) {
+        $scope.popover.show($event);
+    };
+    $scope.closePopover = function() {
+        $scope.popover.hide();
     };
 });
 

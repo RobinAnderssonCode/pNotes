@@ -27,8 +27,13 @@
     border: none;
 }
 
+#color-menu {
+    border: 1px solid black;
+}
+
 .popover {
     height: auto !important;
+    width: auto !important;
 }
 .popover ion-header-bar {
     position: relative;
@@ -75,7 +80,18 @@
     opacity: 0.7;
 }
 
-/*Lägg såna här klasser på varje card med korrekt färg och lägg in en meny eller så*/
-.card-red .item{
-  background: red;
+#green {
+    background-color:#00AA00;
+}
+#blue {
+     background-color:#0055FF;
+}
+#red {
+     background-color:#FF3939;
+}
+#white {
+    background-color: #FEFEFE;
+}
+.btn-color {
+    border: 1px solid black;
 }

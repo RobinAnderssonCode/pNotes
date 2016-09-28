@@ -93,7 +93,7 @@
             <ion-popover-view>
                 <ion-content>
                     <ion-list>
-                        <a ng-click="orderByDate()">
+                        <a ng-click="orderByTime()">
                             <ion-item>
                                 Order by date
                             </ion-item>
@@ -110,7 +110,7 @@
                         </a>
                         <a ng-click="removePattern()">
                             <ion-item>
-                                Set new password
+                                Set new login pattern
                             </ion-item>
                         </a>
                         <a ng-click="goToAbout()">
@@ -124,10 +124,13 @@
         </script>
         <!-- SINGLE NOTE -->
         <script type="text/ng-template" id="singleNote.html">
-            <ion-view view-title="{{obj.title}}">
+            <ion-view view-title="pNotes">
                 <ion-nav-buttons side="right">
                     <button id="edit-note" class="button" ng-click="editNote()">
                         <i class='icon ion-checkmark-round'></i>
+                    </button>
+                    <button id="color-menu" class="button" ng-click="openPopover($event)">
+                        <i class='icon ion-paintbucket'></i>
                     </button>
                     <button id="delete-note" class="button" ng-click="deleteNote(obj.id)">
                         <i class='icon ion-trash-b'></i>
@@ -136,12 +139,12 @@
                 <ion-content class="note-content">
                     <div class="row">
                         <div class="col">
-                            <div class="card opacity-cards">
-                                <div class="item item-text-wrap card-notes">
+                            <div class="card opacity-cards custom-color">
+                                <div class="item item-text-wrap card-notes custom-color">
                                     <label class="item item-input custom-color">
                                         <input class="focusout custom-color-focus note-title" type="text" placeholder="{{obj.title}}" ng-model="obj.title">
                                     </label>
-                                    <label class="item item-input custom-color">
+                                    <label class="item item-input custom-color custom-color">
                                         <textarea class="focusout note-text msd-elastic custom-color-focus single-note" ng-model="obj.body">{{obj.body}}
                                         </textarea>
                                     </label>
@@ -152,6 +155,21 @@
                     </div>
                 </ion-content>
             </ion-view>
+        </script>
+        <!-- POPOVER MENU -->
+        <script id="menu-single.html" type="text/ng-template">
+            <ion-popover-view>
+                <ion-content>
+                    <ion-list>
+                        <ion-item>
+                            <button id="green" class="button button-small btn-color" ng-click="green()"></button>
+                            <button id="blue" class="button button-small btn-color" ng-click="blue()"></button>
+                            <button id="red" class="button button-small btn-color" ng-click="red()"></button>
+                            <button id="white" class="button button-small btn-color" ng-click="white()"></button>
+                        </ion-item>
+                    </ion-list>
+                </ion-content>
+            </ion-popover-view>
         </script>
         <!-- ABOUT -->
         <script type="text/ng-template" id="about.html">

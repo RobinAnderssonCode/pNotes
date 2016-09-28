@@ -1,16 +1,13 @@
 app.factory('NoteFactory', function($cordovaSQLite) {
 
-    var notes = [{
-        title: "Welcome to pNotes",
-        body: "pNotes stands for Private Notes. It's a small simple app designed to easily take notes and keeping them private.",
-        date: "Sep 17, 2016",
-        id: 1
-    }];
+    var orderByTime = "DESC";
+    var count = 0;
 
     var noteService = {
         getAllNotes: function() {
-            var query = "SELECT * FROM notes";
+            var query = "SELECT * FROM notes ORDER BY time " + orderByTime;
             var notes = [];
+
             $cordovaSQLite.execute(db, query, []).then(function(res) {
                 if (res.rows.length > 0) {
                     for (var i = 0; i < res.rows.length; i++) {
@@ -45,8 +42,6 @@ app.factory('NoteFactory', function($cordovaSQLite) {
             });
         },
         saveNote: function(obj) {
-            console.log(obj);
-            console.log(obj.time);
             var query = "INSERT INTO notes (title, body, date, time) VALUES (?,?,?,?)";
             $cordovaSQLite.execute(db, query, [obj.title, obj.body, obj.date, obj.time]).then(function(res) {
                 console.log("INSERTED ID -> " + res.insertId);
@@ -80,7 +75,12 @@ app.factory('NoteFactory', function($cordovaSQLite) {
             });
         },
         orderByTime: function() {
-            console.log("ORDER BY TIME FUNCTION CALLED");
+            count++;
+            if (count % 2 === 0) {
+                orderByTime = "DESC";
+            } else {
+                orderByTime = "ASC";
+            }
         },
         orderByColor: function() {
             console.log("ORDER BY COLOR FUNCTION CALLED");
