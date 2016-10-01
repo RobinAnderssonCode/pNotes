@@ -165,11 +165,11 @@ app.controller('SingleNoteCtrl', function($scope, $state, $stateParams, NoteFact
 
     $scope.green = function() {
         console.log("green called")
-        $(".aaa").css("background-color", "#00AA00");
+        $(".aaa").addClass("balanced");
     };
     $scope.blue = function() {
         console.log("blue called")
-        $(".aaa").css("background-color", "#0055FF");
+        $(".aaa").addClass("calm");
     };
     $scope.red = function() {
         console.log("red called")
