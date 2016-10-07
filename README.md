@@ -13,3 +13,6 @@ pNotes or Private Notes is an app made with the Ionic framework designed to take
 
 -Export/import
 
+
+
+Using https://github.com/s-yadav/patternLock pattern lock.
