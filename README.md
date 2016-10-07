@@ -8,9 +8,7 @@ pNotes or Private Notes is an app made with the Ionic framework designed to take
 ###Comming up:
 
 -Colors
-
 -Order by color
-
 -Export/import
 
 
