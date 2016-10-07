@@ -98,11 +98,12 @@
                                 Order by date
                             </ion-item>
                         </a>
-                        <a ng-click="orderByColor()">
+                        <!-- Will be added later -->
+                        <!-- <a ng-click="orderByColor()">
                             <ion-item>
                                 Order by color
                             </ion-item>
-                        </a>
+                        </a> -->
                         <a ng-click="deleteAll()">
                             <ion-item>
                                 Delete all notes
@@ -129,9 +130,10 @@
                     <button id="edit-note" class="button" ng-click="editNote()">
                         <i class='icon ion-checkmark-round'></i>
                     </button>
-                    <button id="color-menu" class="button" ng-click="openPopover($event)">
+                    <!-- Added later -->
+                    <!-- <button id="color-menu" class="button" ng-click="openPopover($event)">
                         <i class='icon ion-paintbucket'></i>
-                    </button>
+                    </button> -->
                     <button id="delete-note" class="button" ng-click="deleteNote(obj.id)">
                         <i class='icon ion-trash-b'></i>
                     </button>
@@ -178,7 +180,9 @@
                     <div class="row">
                         <div class="col">
                             <div id="about" class="card">
-                                About bla bla bla
+                                <p><b>pNotes</b> or <b>Private Notes</b> is an app designed to take notes easily while maintaining them private with a lock pattern password.</p>
+                                <p>More features coming up.</p>
+                                <p>Fork me on <a href="#" onclick="window.open('https://github.com/RobinAnderssonCode/pNotes', '_system', 'location=yes'); return false;">GitHub!</a></p>
                             </div>
                         </div>
                     </div>
