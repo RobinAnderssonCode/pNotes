@@ -9,9 +9,7 @@ Available on Google Play Store.
 ###Comming up:
 
 -Colors
+
 -Order by color
+
 -Export/import
-
-
-
-Using https://github.com/s-yadav/patternLock pattern lock.
