@@ -1,4 +1,5 @@
-;(function(factory) {
+;
+(function(factory) {
     /** support UMD ***/
     var global = Function('return this')() || (42, eval)('this');
     if (typeof define === "function" && define.amd) {
@@ -136,13 +137,13 @@
                         if (option.allowRepeat || patternAry.indexOf(nextPattId) == -1) {
 
                             //add direction to previous point and line
-                            iObj.addDirectionClass({i: ip, j: jp});
+                            iObj.addDirectionClass({ i: ip, j: jp });
 
                             //mark a point added
                             iObj.markPoint($(li[nextPattId - 1]), nextPattId);
 
                             //add line between the points
-                            iObj.addLine({i: ip,j: jp});
+                            iObj.addLine({ i: ip, j: jp });
                         }
                     }
                 }

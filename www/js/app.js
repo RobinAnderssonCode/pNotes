@@ -13,15 +13,16 @@ app.run(function($ionicPlatform, $cordovaSQLite) {
         // Open database
         db = $cordovaSQLite.openDB("pnotes.db");
 
-        // $cordovaSQLite.execute(db, "DROP TABLE notes"); // varje gång något nytt värde
-        //läggs in påp raden nedan måste tablen tas bort först och skapas upp igen
+        //If we add something new to the table, drop the table and create it again. (for testing only)
+        // $cordovaSQLite.execute(db, "DROP TABLE notes");
+
 
         $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS notes (id integer primary key, title text, body text, date text, time integer)");
 
         // Terminate app on home button pushed. 
-         // $ionicPlatform.on('pause', function() {
-         //    ionic.Platform.exitApp();
-         // });
+        $ionicPlatform.on('pause', function() {
+            ionic.Platform.exitApp();
+        });
     });
 });
 

@@ -5,10 +5,6 @@
     border: 1px solid black;
 }
 
-.btn-custom:active {
-
-}
-
 .btn-custom:hover {
     border-radius: 2px;
     background-color: #EC0000;
@@ -35,9 +31,11 @@
     height: auto !important;
     width: auto !important;
 }
+
 .popover ion-header-bar {
     position: relative;
 }
+
 .popover ion-content {
     top: 0;
     position: relative;
@@ -70,7 +68,7 @@
     color: white;
     background-color: black;
     display: inline;
-    float:right;
+    float: right;
     border-bottom-right-radius: 2px;
     border-bottom-left-radius: 2px;
 }
@@ -81,17 +79,21 @@
 }
 
 #green {
-    background-color:#00AA00;
+    background-color: #00AA00;
 }
+
 #blue {
-     background-color:#0055FF;
+    background-color: #0055FF;
 }
+
 #red {
-     background-color:#FF3939;
+    background-color: #FF3939;
 }
+
 #white {
     background-color: #FEFEFE;
 }
+
 .btn-color {
     border: 1px solid black;
 }
