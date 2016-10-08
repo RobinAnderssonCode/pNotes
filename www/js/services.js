@@ -44,16 +44,13 @@ app.factory('NoteFactory', function($cordovaSQLite) {
         saveNote: function(obj) {
             var query = "INSERT INTO notes (title, body, date, time) VALUES (?,?,?,?)";
             $cordovaSQLite.execute(db, query, [obj.title, obj.body, obj.date, obj.time]).then(function(res) {
-                console.log("INSERTED ID -> " + res.insertId);
             }, function(err) {
                 console.error(err);
             });
         },
         editNote: function(obj) {
-            console.log(obj);
             var query = "UPDATE notes SET title = (?), body = (?), date = (?), time = (?) WHERE id = (?)";
             $cordovaSQLite.execute(db, query, [obj.title, obj.body, obj.date, obj.time, obj.id]).then(function(res) {
-                console.log("UPDATED ID -> " + obj.id);
             }, function(err) {
                 console.error(err);
             });
@@ -61,7 +58,6 @@ app.factory('NoteFactory', function($cordovaSQLite) {
         deleteNote: function(noteId) {
             var query = "DELETE FROM notes WHERE ID = ?";
             return $cordovaSQLite.execute(db, query, [noteId]).then(function(res) {
-                console.log("DELETED ID -> " + res.insertId);
             }, function(err) {
                 console.error(err);
             });
@@ -69,7 +65,6 @@ app.factory('NoteFactory', function($cordovaSQLite) {
         deleteAll: function() {
             var query = "DELETE FROM notes";
             $cordovaSQLite.execute(db, query, []).then(function(res) {
-                console.log("DELETED All notes");
             }, function(err) {
                 console.error(err);
             });

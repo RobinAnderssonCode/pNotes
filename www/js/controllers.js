@@ -42,7 +42,6 @@ app.controller('AddNoteCtrl', function($scope, $state, NoteFactory, $cordovaSQLi
         var date = new Date();
         $scope.note.date = new Intl.DateTimeFormat("en-us", options).format(date);
         $scope.note.time = new Date().valueOf();
-        // $scope.note.color = 
 
         NoteFactory.saveNote($scope.note);
         $state.go('listNotes');
@@ -77,7 +76,7 @@ app.controller('ListNotesCtrl', function($scope, NoteFactory, LoginService, $sta
     };
 
     $scope.orderByColor = function() {
-      NoteFactory.orderByColor();  
+        NoteFactory.orderByColor();
     };
 
     $scope.removePattern = function() {
@@ -135,7 +134,7 @@ app.controller('SingleNoteCtrl', function($scope, $state, $stateParams, NoteFact
     };
 
     // Edit note on no textarea/input no focus.
-     $(".focusout").focusout(function() {
+    $(".focusout").focusout(function() {
         var obj = {};
         obj.title = $scope.obj.title;
         obj.body = $scope.obj.body;
@@ -161,26 +160,7 @@ app.controller('SingleNoteCtrl', function($scope, $state, $stateParams, NoteFact
         });
     };
 
-    // MÅSTE KÖRA SASS tror jag
-
-    $scope.green = function() {
-        console.log("green called")
-        $(".aaa").addClass("balanced");
-    };
-    $scope.blue = function() {
-        console.log("blue called")
-        $(".aaa").addClass("calm");
-    };
-    $scope.red = function() {
-        console.log("red called")
-        $(".aaa").css("background-color", "#FF3939;");
-    };
-    $scope.white = function() {
-        console.log("white called")
-        $(".aaa").css("background-color", "#FEFEFE");
-    };
-
-     // POPOVER
+    // POPOVER
     $ionicPopover.fromTemplateUrl('menu-single.html', {
         scope: $scope
     }).then(function(popover) {
@@ -194,11 +174,3 @@ app.controller('SingleNoteCtrl', function($scope, $state, $stateParams, NoteFact
         $scope.popover.hide();
     };
 });
-
-// Att fixa :
-// Titeln
-// order by color
-// about sidan
-// importera / exportera
-// färger
-// Item sliding
