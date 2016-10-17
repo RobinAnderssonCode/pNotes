@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.pnotes119490" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>pNotes</name>
-<<<<<<< HEAD
+  <name>Private Notes - pNotes</name>
   <description>
-        A Private Notes application.
+        A project by RobinAnderssonCode
     </description>
-  <author email="RobinAnderssonCode@gmail.com" href="http://codepen.io/RobinAnderssonCode/full/WxkzJx/">
+  <author email="RobinAnderssonCode@gmail.com" href="https://github.com/RobinAnderssonCode/pNotes">
       Robin Andersson
-=======
-  <description>&#xD;
-        An Ionic Framework and Cordova project.&#xD;
-    </description>
-  <author email="you@example.com" href="http://example.com.com/">&#xD;
-      Your Name Here&#xD;
->>>>>>> 8b6705ebafb668dc8245c5d984169ba7b3fdeb9f
     </author>
   <content src="index.html"/>
   <access origin="*"/>
@@ -35,29 +27,24 @@
   <plugin name="cordova-plugin-statusbar" spec="~2.1.3"/>
   <plugin name="ionic-plugin-keyboard" spec="~2.2.1"/>
   <platform name="android">
-    <icon src="resources\android\icon\drawable-ldpi-icon.png" density="ldpi"/>
-    <icon src="resources\android\icon\drawable-mdpi-icon.png" density="mdpi"/>
-    <icon src="resources\android\icon\drawable-hdpi-icon.png" density="hdpi"/>
-    <icon src="resources\android\icon\drawable-xhdpi-icon.png" density="xhdpi"/>
-    <icon src="resources\android\icon\drawable-xxhdpi-icon.png" density="xxhdpi"/>
-    <icon src="resources\android\icon\drawable-xxxhdpi-icon.png" density="xxxhdpi"/>
-    <splash src="resources\android\splash\drawable-land-ldpi-screen.png" density="land-ldpi"/>
-    <splash src="resources\android\splash\drawable-land-mdpi-screen.png" density="land-mdpi"/>
-    <splash src="resources\android\splash\drawable-land-hdpi-screen.png" density="land-hdpi"/>
-    <splash src="resources\android\splash\drawable-land-xhdpi-screen.png" density="land-xhdpi"/>
-    <splash src="resources\android\splash\drawable-land-xxhdpi-screen.png" density="land-xxhdpi"/>
-    <splash src="resources\android\splash\drawable-land-xxxhdpi-screen.png" density="land-xxxhdpi"/>
-    <splash src="resources\android\splash\drawable-port-ldpi-screen.png" density="port-ldpi"/>
-    <splash src="resources\android\splash\drawable-port-mdpi-screen.png" density="port-mdpi"/>
-    <splash src="resources\android\splash\drawable-port-hdpi-screen.png" density="port-hdpi"/>
-    <splash src="resources\android\splash\drawable-port-xhdpi-screen.png" density="port-xhdpi"/>
-    <splash src="resources\android\splash\drawable-port-xxhdpi-screen.png" density="port-xxhdpi"/>
-    <splash src="resources\android\splash\drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi"/>
+    <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>
+    <icon src="resources/android/icon/drawable-mdpi-icon.png" density="mdpi"/>
+    <icon src="resources/android/icon/drawable-hdpi-icon.png" density="hdpi"/>
+    <icon src="resources/android/icon/drawable-xhdpi-icon.png" density="xhdpi"/>
+    <icon src="resources/android/icon/drawable-xxhdpi-icon.png" density="xxhdpi"/>
+    <icon src="resources/android/icon/drawable-xxxhdpi-icon.png" density="xxxhdpi"/>
+    <splash src="resources/android/splash/drawable-land-ldpi-screen.png" density="land-ldpi"/>
+    <splash src="resources/android/splash/drawable-land-mdpi-screen.png" density="land-mdpi"/>
+    <splash src="resources/android/splash/drawable-land-hdpi-screen.png" density="land-hdpi"/>
+    <splash src="resources/android/splash/drawable-land-xhdpi-screen.png" density="land-xhdpi"/>
+    <splash src="resources/android/splash/drawable-land-xxhdpi-screen.png" density="land-xxhdpi"/>
+    <splash src="resources/android/splash/drawable-land-xxxhdpi-screen.png" density="land-xxxhdpi"/>
+    <splash src="resources/android/splash/drawable-port-ldpi-screen.png" density="port-ldpi"/>
+    <splash src="resources/android/splash/drawable-port-mdpi-screen.png" density="port-mdpi"/>
+    <splash src="resources/android/splash/drawable-port-hdpi-screen.png" density="port-hdpi"/>
+    <splash src="resources/android/splash/drawable-port-xhdpi-screen.png" density="port-xhdpi"/>
+    <splash src="resources/android/splash/drawable-port-xxhdpi-screen.png" density="port-xxhdpi"/>
+    <splash src="resources/android/splash/drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi"/>
   </platform>
-<<<<<<< HEAD
   <icon src="resources/android/icon/drawable-xhdpi-icon.png"/>
 </widget>
-=======
-  <icon src="resources\android\icon\drawable-xhdpi-icon.png"/>
-</widget>
->>>>>>> 8b6705ebafb668dc8245c5d984169ba7b3fdeb9f
